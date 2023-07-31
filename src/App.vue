@@ -1,6 +1,14 @@
 <template>
   <div class="container mx-auto p-5">
-    <div>
+    <div class="py-2 flex items-center justify-center">
+      <p class="font-extrabold text-9xl">我不想上班 QQ</p>
+    </div>
+
+    <!-- bar -->
+    <div class="py-2 border-b border-gray-200">
+    </div>
+
+    <div class="py-2">
       <div class="">
         <div class="flex flex-row justify-around">
           <input type="number" placeholder="時（0 ~ 23）" v-model="PHour"
@@ -19,6 +27,11 @@
 
       </div>
     </div>
+
+    <!-- bar -->
+    <div class="py-2 border-b border-gray-200">
+    </div>
+
     <div class="flex items-center justify-center">
       <SVG v-if="isShowSVG" :imageUrl="imageUrl" :text="text"></SVG>
     </div>
