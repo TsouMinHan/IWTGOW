@@ -25,6 +25,8 @@ import { ref, onMounted } from 'vue';
 
 import SVG from './components/SVG.vue';
 
+import { timeProcess } from './utils/util.js';
+
 const text = ref('');
 const PHour = ref(null);
 const PMinute = ref(null);
@@ -53,7 +55,7 @@ const formatTime = (seconds) => {
 
   let text = '距離下班還有';
 
-  if (hours !== 0) text += ' ' + hour + ' 時';
+  if (hours !== 0) text += ' ' + hours + ' 時';
   if (minutes !== 0) text += ' ' + minutes + ' 分';
   if (remainingSeconds !== 0) text += ' ' + remainingSeconds + ' 秒';
 
@@ -104,6 +106,10 @@ const countdown = () => {
 
 const handleClickShowBtn = () => {
   isShowSVG.value = true;
+
+  PHour.value = timeProcess(PHour.value, 'hours')
+  PMinute.value = timeProcess(PMinute.value, 'minutes')
+  PSecond.value = timeProcess(PSecond.value, 'seconds')
   hour.value = PHour.value;
   minute.value = PMinute.value;
   second.value = PSecond.value;
