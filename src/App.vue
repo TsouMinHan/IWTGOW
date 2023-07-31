@@ -4,14 +4,19 @@
       <div class="">
         <div class="flex flex-row justify-around">
           <input type="number" placeholder="時（0 ~ 23）" v-model="PHour"
-            class="block p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+            class="block p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700">
           <input type="number" placeholder="分（0 ~ 59）" v-model="PMinute"
-            class="block p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+            class="block p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700">
           <input type="number" placeholder="秒（0 ~ 59）" v-model="PSecond"
-            class="block p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+            class="block p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700">
           <button type="button" @click="handleClickShowBtn"
             class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">開始</button>
         </div>
+      </div>
+      <div class="block w-full">
+        <input type="text" placeholder="圖片網址" v-model="PImageUrl"
+          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700">
+
       </div>
     </div>
     <div class="flex items-center justify-center">
@@ -39,7 +44,9 @@ const second = ref(0);
 const isShowSVG = ref(false);
 const intervalId = ref(null);
 
-const imageUrl = 'https://memeprod.ap-south-1.linodeobjects.com/user-template/3bdca86ed34a8c8578cdb00270ea9607.png';
+const PImageUrl = ref('');
+const imageUrl = ref('');
+// const imageUrl = 'https://memeprod.ap-south-1.linodeobjects.com/user-template/3bdca86ed34a8c8578cdb00270ea9607.png';
 
 /**
  * 產生倒數時間字串
@@ -83,6 +90,7 @@ const countdown = () => {
   const currentTime = new Date();
 
   if (targetTime <= currentTime) {
+    alert('已經下班了!');
     text.value = '已經下班了';
     return;
   }
@@ -105,16 +113,18 @@ const countdown = () => {
 }
 
 const handleClickShowBtn = () => {
-  isShowSVG.value = true;
+  imageUrl.value = PImageUrl.value;
 
-  PHour.value = timeProcess(PHour.value, 'hours')
-  PMinute.value = timeProcess(PMinute.value, 'minutes')
-  PSecond.value = timeProcess(PSecond.value, 'seconds')
+  PHour.value = timeProcess(PHour.value, 'hours');
+  PMinute.value = timeProcess(PMinute.value, 'minutes');
+  PSecond.value = timeProcess(PSecond.value, 'seconds');
+
   hour.value = PHour.value;
   minute.value = PMinute.value;
   second.value = PSecond.value;
 
   countdown();
+  isShowSVG.value = true;
 }
 
 onMounted(() => {
